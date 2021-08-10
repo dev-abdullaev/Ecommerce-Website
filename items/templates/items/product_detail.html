@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+    {% if item.image %}
+        <img style="width: 750px; height: 650px; margin-left: 190px;" src="{{item.image.url}}" alt="">
+        <h2 class="title">{{item.title}}, ${{item.price}}  
+            <span class="badge badge-primary p-2">{{item.vendor.name}}</span> 
+        </h2>
+       
+
+        <p>{{item.description}}</p>
+
+        <hr>
+        {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+                <li style="display:none">{{message}}</li>    
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form class="form-inline" method='post' action='.'>{% csrf_token %}
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="number" class="form-control" name='quantity' value='1' min='1'>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2 text-uppercase">Add to cart</button>
+        </form>
+
+        {% if related_items %}
+            <hr>
+
+            <div class="box">
+                <h2>Similar Products</h2>
+                <div class="row">
+                    {% for item in related_items %}
+                        <div class="col-lg-3 mb-3 mt-3">
+                            <div class="card">
+                                <img style='width: 250px; height: 250px;' src="{{ item.image.url }}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                <h5 class="card-title">{{item.title}}</h5>
+                                <b class="card-text">${{item.price}}</b>
+                                <hr>
+                                    <a href="{% url 'product_detail' item.category.slug item.slug %}" class='btn btn-block btn-primary'>View</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+    <br><br>
+{% endblock content %}

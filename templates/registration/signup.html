@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+<title>{% block title %}Become Vedor | Ecom King {% endblock title %}</title>
+
+{% block content %}
+    
+    <div class="contaniner ">
+        <div class="row justify-content-center mt-4">
+            <div class="col-lg-6">
+                <h1>Become Vendor</h1>
+                <form form method="post">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    <button type="submit" class="btn btn-block btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>    
+    </div>
+
+{% endblock content %}

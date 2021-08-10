@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ vendor.name }} | {% endblock %}
+
+{% block content %}
+    <div class="row mb-6">
+        <div class="col-md-12 text-center mt-5 mb-5">
+            <h2 class="">{{ vendor.name }}</h2>
+        </div>
+
+        {% for product in vendor.products.all %}
+            <div class="col-md-3 product-list-item">
+                <div class="box">
+                    <figure class="image by-3 mb-4">
+                        <img src="{{ product.get_thumbnail }}">
+                    </figure>
+
+                    <h2 class="subtitle">{{ product.title }}</h2>
+
+                    <h3 class="price mb-5">${{ product.price }}</h3>
+
+                    <hr>
+
+                    <a href="{% url 'product' product.category.slug product.slug %}" class="btn btn-primary text-uppercase">View</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

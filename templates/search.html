@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+<title>{% block title %} Search | Ecom King {% endblock title %}</title>
+
+{% block content %}
+    <h1 class="text-center mt-4">Search Term: {{query}} </h1>
+    
+    <div class="row">
+        {% for item in items %}
+            <div class="col-lg-3 mb-3 mt-3">
+                <div class="card">
+                    <img style='width: 250px; height: 200px;' src="{{ item.image.url }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">{{item.title}}</h5>
+                    <b class="card-text">${{item.price}}</b>
+                    <hr>
+                    <a href="{% url 'product_detail' item.category.slug item.slug %}" class='btn btn-block btn-primary'>View</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+{% endblock content %}
